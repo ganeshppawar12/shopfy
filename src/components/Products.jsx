@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 
-const Products = ({getCategory,category,getProduct}) => {
-  const [products, Setproducts] = useState([]);
+const Products = ({ getCategory, category }) => {
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
-
   function getProduct(productsDetails) {
-    // setgetProductView(productsDetails);
-    navigate("/ProductsView", { state: productsDetails }); // ✅ Pass data correctly
+    navigate("/ProductsView", { state: productsDetails });
   }
 
   const fetchProducts = async () => {
@@ -18,27 +16,35 @@ const Products = ({getCategory,category,getProduct}) => {
         `https://fakestoreapi.com/products/category/${category}`
       );
       const data = await res.json();
-
-      Setproducts(data);
-    //   console.log(data);
+      setProducts(data);
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
     fetchProducts();
-  }, [Setproducts,category]);
-  return (
-    <div className="flex gap-1" >
-        <div className="" style={{flex:'0.2'}} >
-        <SideBar getCategory={getCategory}></SideBar>
+  }, [category]);
 
-        </div>
-      <div className="flex flex-1">
-        <ul className=" flex flex-col gap-2 "  >
-          {products?.map((item) => {
-            return <li onClick={()=>getProduct(item)} >{item.title}</li>;
-          })}
+  return (
+    <div className="flex shadow-lg rounded-lg overflow-hidden bg-white  ">
+      {/* Sidebar */}
+      <div className="w-1/4 bg-black text-white p-5">
+        <SideBar getCategory={getCategory} />
+      </div>
+
+      {/* Products List */}
+      <div className="w-3/4 p-5">
+        <ul className="space-y-3">
+          {products?.map((item, index) => (
+            <li
+              key={index}
+              onClick={() => getProduct(item)}
+              className="cursor-pointer text-gray-800 hover:text-blue-500"
+            >
+              • {item.title}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
