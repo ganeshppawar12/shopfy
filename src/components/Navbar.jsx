@@ -1,7 +1,14 @@
 import React from 'react'
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    sessionStorage.removeItem("isAuthenticated");
+    // setIsLoggedIn(false);
+    navigate("/login");
+  };
+
   return (
     <div className=''>
 
@@ -12,7 +19,7 @@ const Navbar = () => {
         <div style={{flex:'0.4'}}>
             <ul className='flex gap-10 font-medium'  >
                 <li>
-                <Link to="/">Home</Link>    
+                <Link to="/home">Home</Link>    
 
                 </li>
                 <li>
@@ -26,6 +33,9 @@ const Navbar = () => {
                 <li>
                 <Link to="/Contact">Contact</Link>    
 
+                </li>
+                <li className=' cursor-pointer '  onClick={handleLogout}>
+                  LogOut
                 </li>
             </ul>
         </div>

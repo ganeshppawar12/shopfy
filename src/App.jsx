@@ -1,51 +1,68 @@
 import { useState } from "react";
+import { HashRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import SideBar from "./components/SideBar";
 import Products from "./components/Products";
 import ProductsView from "./components/ProductsView";
-import { HashRouter, Routes, Route } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import Users from "./components/Users";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Contact from "./components/Contact";
 
-
+const PrivateRoute = ({ element }) => {
+  const isAuthenticated = sessionStorage.getItem("isAuthenticated"); // Check if user is logged in
+  return isAuthenticated ? element : <Navigate to="/login" />;
+};
 function App() {
   const [getcategory, setgetCategory] = useState("electronics");
   const [getProductView, setgetProductView] = useState([]);
 
-  // const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem("isAuthenticated"));
+
+  const handleLogin = () => {
+    sessionStorage.setItem("isAuthenticated", "true"); // User is now authenticated
+    setIsLoggedIn(true);
+  };
+  
 
   function getCategory(category) {
     setgetCategory(category);
   }
 
-  function getProduct(productsDetiles) {
-    setgetProductView(productsDetiles);
-    navigate("/ProductsView", { state: productsDetails });
+  function getProduct(productsDetails) {
+    setgetProductView(productsDetails);
   }
 
   return (
-    <>
-      <div>
-            
-          </div>
-      <HashRouter>
-      <Navbar></Navbar>
+    <HashRouter>
+      <MainLayout>
         <Routes>
-        
-          <Route path="/home" element={<Home></Home>}></Route>
-          <Route path="/products" element={<Products
-            getCategory={getCategory}
-            category={getcategory}
-            getProduct={getProduct}
-          ></Products>}></Route>
-          <Route path="/ProductsView" element={<ProductsView></ProductsView> }></Route>
-          <Route path="/Users" element={<Users></Users>}></Route>
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/home" element={<PrivateRoute element={<Home />} />} />
+          <Route path="/products" element={<PrivateRoute element={<Products getCategory={getCategory} category={getcategory} getProduct={getProduct} />} />} />
+          <Route path="/ProductsView" element={<PrivateRoute element={<ProductsView />} />} />
+          <Route path="/Users" element={<PrivateRoute element={<Users />} />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="/Contact" element={<Contact/>} />
 
         </Routes>
-      </HashRouter>
-    </>
+      </MainLayout>
+    </HashRouter>
   );
 }
+
+// Component to handle layout with conditional Navbar
+const MainLayout = ({ children }) => {
+  const location = useLocation();
+  const hideNavbarPaths = ["/login", "/signup"];
+
+  return (
+    <>
+      {!hideNavbarPaths.includes(location.pathname) && <Navbar />}
+      {children}
+    </>
+  );
+};
 
 export default App;
