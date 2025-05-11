@@ -10,14 +10,14 @@ const Navbar = () => {
   };
 
   return (
-    <div className=''>
+    <div className='sticky top-0 border-b border-gray-800 '>
 
-    <div className='flex items-center justify-between p-2 ' >
+    <div className='flex items-center justify-between p-2 bg-black' >
         <div>
-            <h1 className=' m-0 font-light' >Shop<span className=' text-gray-600 ' >Pick </span></h1>
+            <h1 className='text-[#0073E6] font-semibold m-0 text-2xl ' >Shop<span className=' text-[#53A2F9] font-light' >Pick </span></h1>
         </div>
         <div style={{flex:'0.4'}}>
-            <ul className='flex gap-10 font-medium'  >
+            <ul className='flex gap-10 font-medium text-white'  >
                 <li>
                 <Link to="/home">Home</Link>    
 

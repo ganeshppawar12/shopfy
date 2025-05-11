@@ -5,6 +5,7 @@ import SideBar from "./SideBar";
 const Products = ({ getCategory, category }) => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
   function getProduct(productsDetails) {
     navigate("/ProductsView", { state: productsDetails });
@@ -17,8 +18,10 @@ const Products = ({ getCategory, category }) => {
       );
       const data = await res.json();
       setProducts(data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
@@ -26,8 +29,9 @@ const Products = ({ getCategory, category }) => {
     fetchProducts();
   }, [category]);
 
+
   return (
-    <div className="flex shadow-lg rounded-lg overflow-hidden bg-white  ">
+    <div className="flex shadow-lg h-screen overflow-hidden bg-white  ">
       {/* Sidebar */}
       <div className="w-1/4 bg-black text-white p-5">
         <SideBar getCategory={getCategory} />

@@ -13,6 +13,7 @@ const SideBar = ({getCategory}) => {
                 console.log(err);
             }
         };
+        const capitalizeFirst = (str) => str.charAt(0).toUpperCase() + str.slice(1);
     
         useEffect(() => {
             fetchData();
@@ -22,12 +23,12 @@ const SideBar = ({getCategory}) => {
   return (
     <div className=' bg-black  text-white ' >
 
-<div className='flex flex-col gap-3 p-2'  >
+<div className='flex flex-col gap-10 p-2'  >
  {
     category.map((item)=>{
         return(
 <>
-            <div className=' cursor-pointer ' onClick={()=>getCategory(item)} key={item}> {item} </div>
+            <div className=' cursor-pointer ' onClick={()=>getCategory(item)} key={item}> {capitalizeFirst(item)} </div>
 
 </>
         )

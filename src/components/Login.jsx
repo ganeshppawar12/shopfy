@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -12,9 +14,9 @@ const Login = ({ onLogin }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
     if (storedUser && storedUser.email === email && storedUser.password === password) {
-        sessionStorage.setItem("isAuthenticated", "true"); // Only store login status
-        onLogin(); // Update state in App.js
-    navigate("/home"); // Redirect to home
+        sessionStorage.setItem("isAuthenticated", "true"); 
+        onLogin(); 
+    navigate("/home"); 
 
       } else {
         setError(true);
@@ -22,10 +24,10 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-col md:flex-row ">
       {/* Left Section - Login Form */}
-      <div className="w-1/2 flex flex-col justify-center px-16 bg-white">
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome back to Pretty Login</h2>
+      <div className="md:w-1/2 flex flex-col justify-center px-16 bg-white">
+        <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome back</h2>
         <p className="text-gray-500 mb-6">It's great to have you back!</p>
 
         <form onSubmit={handleLogin} className="space-y-4">
@@ -76,13 +78,13 @@ const Login = ({ onLogin }) => {
 
         <p className="text-center mt-4 text-gray-600">Or login with</p>
         <div className="flex justify-center space-x-4 text-purple-600">
-          <a href="#" className="hover:underline">Facebook</a>
-          <a href="#" className="hover:underline">Google</a>
+          <a href="#" className="hover:underline text-blue-600"><FacebookIcon></FacebookIcon></a>
+          <a href="#" className="hover:underline"><GoogleIcon></GoogleIcon></a>
         </div>
       </div>
 
       {/* Right Section - Image */}
-      <div className="w-1/2">
+      <div className="md:w-1/2">
         <img src="https://images.pexels.com/photos/70365/forest-sunbeams-trees-sunlight-70365.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Background" className="w-full h-full object-cover" />
       </div>
     </div>

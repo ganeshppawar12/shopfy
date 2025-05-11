@@ -8,6 +8,7 @@ import Users from "./components/Users";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 const PrivateRoute = ({ element }) => {
   const isAuthenticated = sessionStorage.getItem("isAuthenticated"); // Check if user is logged in
@@ -48,6 +49,7 @@ function App() {
 
         </Routes>
       </MainLayout>
+      <Footer></Footer>
     </HashRouter>
   );
 }

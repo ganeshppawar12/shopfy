@@ -6,7 +6,8 @@ const ProductsView = () => {
     const product = location.state;
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg border">
+        <div className='h-screen p-4 bg-black' >
+        <div className=" max-w-4xl mx-auto  bg-gray-900  text-gray-200 shadow-lg rounded-lg border">
             {/* Category Header */}
             <div className="bg-green-600 text-white text-center py-3 rounded-t-lg text-xl font-semibold">
                 {product?.category} Category
@@ -23,15 +24,15 @@ const ProductsView = () => {
                 <div className="w-2/3">
                     <div className="mb-4">
                         <p className="font-semibold">Product Name</p>
-                        <p className="text-gray-700">{product?.title}</p>
+                        <p className="text-gray-400">{product?.title}</p>
                     </div>
                     <div className="mb-4">
                         <p className="font-semibold">Product Price</p>
-                        <p className="text-gray-700">${product?.price}</p>
+                        <p className="text-gray-400">${product?.price}</p>
                     </div>
                     <div className="mb-4">
                         <p className="font-semibold">Product Description</p>
-                        <p className="text-gray-700 text-sm">{product?.description}</p>
+                        <p className="text-gray-400 text-sm">{product?.description}</p>
                     </div>
                     {/* <div>
                         <p className="font-semibold">Product Rating</p>
@@ -39,6 +40,7 @@ const ProductsView = () => {
                     </div> */}
                 </div>
             </div>
+        </div>
         </div>
     );
 };
